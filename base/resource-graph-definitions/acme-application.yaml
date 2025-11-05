@@ -26,8 +26,8 @@ spec:
       availableReplicas: ${deployment.status.availableReplicas}
     additionalPrinterColumns:
       # Printer columns shown for the created custom resource
-      - jsonPath: .status.availableReplicas
-        name: Available replicas
+      - jsonPath: .status.replicas
+        name: Replicas
         type: integer
       - jsonPath: .spec.image
         name: Image
@@ -50,7 +50,6 @@ spec:
               controller: false
           labels:
             app.kubernetes.io/name: ${schema.metadata.name}
-            # app.kubernetes.io/managed-by: kro
           annotations:
             argocd.argoproj.io/tracking-id: ${schema.metadata.?annotations["argocd.argoproj.io/tracking-id"]}
         spec:
