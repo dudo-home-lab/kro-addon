@@ -17,7 +17,8 @@ spec:
       image: string | required=true description="Container image for the application"
       ingress:
         enabled: boolean | default=false description="Whether to create an Ingress for the application"
-        hostnames: '[]string | default=[www.dudo.dev] uniqueItems=true description="Subdomains for the Ingress"'
+        hostnames: >-
+          []string | default=["www.dudo.dev"] uniqueItems=true description="Subdomains for the Ingress"
       config: object | default={} description="Environment variables for the application"
     status:
       # Fields the controller will inject into instances status.
