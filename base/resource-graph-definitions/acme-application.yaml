@@ -14,7 +14,6 @@ spec:
     kind: AcmeApplication
     spec:
       # Spec fields that users can provide.
-      name: string | required=true description="Name of the application"
       image: string | required=true description="Container image for the application"
       ingress:
         enabled: boolean | default=false description="Whether to create an Ingress for the application"
@@ -40,7 +39,7 @@ spec:
         apiVersion: apps/v1
         kind: Deployment
         metadata:
-          name: ${schema.spec.name} # Use the name provided by user
+          name: ${schema.metadata.name} # Use the name provided by user
           ownerReferences:
             - apiVersion: kro.run/v1alpha1
               kind: ${schema.kind}
@@ -49,7 +48,7 @@ spec:
               blockOwnerDeletion: true
               controller: false
           labels:
-            app.kubernetes.io/name: ${schema.spec.name}
+            app.kubernetes.io/name: ${schema.metadata.name}
             # app.kubernetes.io/managed-by: kro
           annotations:
             argocd.argoproj.io/tracking-id: ${schema.metadata.?annotations["argocd.argoproj.io/tracking-id"]}
@@ -58,11 +57,11 @@ spec:
           revisionHistoryLimit: 3
           selector:
             matchLabels:
-              app.kubernetes.io/name: ${schema.spec.name}
+              app.kubernetes.io/name: ${schema.metadata.name}
           template:
             metadata:
               labels:
-                app.kubernetes.io/name: ${schema.spec.name}
+                app.kubernetes.io/name: ${schema.metadata.name}
             spec:
               containers:
                 - name: app
@@ -98,7 +97,7 @@ spec:
         apiVersion: v1
         kind: ConfigMap
         metadata:
-          name: ${schema.spec.name}-config
+          name: ${schema.metadata.name}-config
           ownerReferences:
             - apiVersion: kro.run/v1alpha1
               kind: ${schema.kind}
@@ -107,7 +106,7 @@ spec:
               blockOwnerDeletion: true
               controller: false
           labels:
-            app.kubernetes.io/name: ${schema.spec.name}
+            app.kubernetes.io/name: ${schema.metadata.name}
           annotations:
             argocd.argoproj.io/tracking-id: ${schema.metadata.?annotations["argocd.argoproj.io/tracking-id"]}
         data: ${schema.spec.config}
@@ -117,7 +116,7 @@ spec:
         apiVersion: v1
         kind: Service
         metadata:
-          name: ${schema.spec.name}-service
+          name: ${schema.metadata.name}-service
           ownerReferences:
             - apiVersion: kro.run/v1alpha1
               kind: ${schema.kind}
@@ -126,7 +125,7 @@ spec:
               blockOwnerDeletion: true
               controller: false
           labels:
-            app.kubernetes.io/name: ${schema.spec.name}
+            app.kubernetes.io/name: ${schema.metadata.name}
           annotations:
             argocd.argoproj.io/tracking-id: ${schema.metadata.?annotations["argocd.argoproj.io/tracking-id"]}
         spec:
@@ -144,7 +143,7 @@ spec:
         apiVersion: gateway.networking.k8s.io/v1
         kind: HTTPRoute
         metadata:
-          name: ${schema.spec.name}-ingress
+          name: ${schema.metadata.name}-ingress
           ownerReferences:
             - apiVersion: kro.run/v1alpha1
               kind: ${schema.kind}
@@ -153,7 +152,7 @@ spec:
               blockOwnerDeletion: true
               controller: false
           labels:
-            app.kubernetes.io/name: ${schema.spec.name}
+            app.kubernetes.io/name: ${schema.metadata.name}
           annotations:
             argocd.argoproj.io/tracking-id: ${schema.metadata.?annotations["argocd.argoproj.io/tracking-id"]}
         spec:
