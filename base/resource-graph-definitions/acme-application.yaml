@@ -41,10 +41,10 @@ spec:
         metadata:
           name: ${schema.metadata.name} # Use the name provided by user
           ownerReferences:
-            - apiVersion: kro.run/v1alpha1
-              kind: ${schema.kind}
-              name: ${schema.metadata.name}
-              uid: ${schema.metadata.uid}
+            - apiVersion: ${self.apiVersion}
+              kind: ${self.kind}
+              name: ${self.metadata.name}
+              uid: ${self.metadata.uid}
               blockOwnerDeletion: true
               controller: false
           labels:
@@ -99,10 +99,10 @@ spec:
         metadata:
           name: ${schema.metadata.name}-config
           ownerReferences:
-            - apiVersion: kro.run/v1alpha1
-              kind: ${schema.kind}
-              name: ${schema.metadata.name}
-              uid: ${schema.metadata.uid}
+            - apiVersion: ${self.apiVersion}
+              kind: ${self.kind}
+              name: ${self.metadata.name}
+              uid: ${self.metadata.uid}
               blockOwnerDeletion: true
               controller: false
           labels:
@@ -118,10 +118,10 @@ spec:
         metadata:
           name: ${schema.metadata.name}-service
           ownerReferences:
-            - apiVersion: kro.run/v1alpha1
-              kind: ${schema.kind}
-              name: ${schema.metadata.name}
-              uid: ${schema.metadata.uid}
+            - apiVersion: ${self.apiVersion}
+              kind: ${self.kind}
+              name: ${self.metadata.name}
+              uid: ${self.metadata.uid}
               blockOwnerDeletion: true
               controller: false
           labels:
@@ -145,10 +145,10 @@ spec:
         metadata:
           name: ${schema.metadata.name}-ingress
           ownerReferences:
-            - apiVersion: kro.run/v1alpha1
-              kind: ${schema.kind}
-              name: ${schema.metadata.name}
-              uid: ${schema.metadata.uid}
+            - apiVersion: ${self.apiVersion}
+              kind: ${self.kind}
+              name: ${self.metadata.name}
+              uid: ${self.metadata.uid}
               blockOwnerDeletion: true
               controller: false
           labels:
