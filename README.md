@@ -1,3 +1,3 @@
 # Kro Addon
 
-Kubernetes manifests for managing [Kro](https://kro.run/) ResourceGraphDefinitions.
+Kubernetes manifests for managing [Kro](https://kro.run/docs/overview) ResourceGraphDefinitions.
